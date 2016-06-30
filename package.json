@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bakeryhq/react-native-navigation-redux-helpers.git"
+    "url": "https://github.com/thebakeryio/react-native-navigation-redux-helpers.git"
   },
   "keywords": [],
   "author": "The Bakery",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bakeryhq/react-native-navigation-redux-helpers/issues"
+    "url": "https://github.com/thebakeryio/react-native-navigation-redux-helpers/issues"
   },
-  "homepage": "https://github.com/bakeryhq/react-native-navigation-redux-helpers",
+  "homepage": "https://github.com/thebakeryio/react-native-navigation-redux-helpers",
   "devDependencies": {
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.0",

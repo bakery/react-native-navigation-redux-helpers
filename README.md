@@ -1,9 +1,9 @@
 # React Native Navigation Redux helpers
-[![Travis build status](http://img.shields.io/travis/bakeryhq/react-native-navigation-redux-helpers.svg?style=flat)](https://travis-ci.org/bakeryhq/react-native-navigation-redux-helpers)
-[![Code Climate](https://codeclimate.com/github/bakeryhq/react-native-navigation-redux-helpers/badges/gpa.svg)](https://codeclimate.com/github/bakeryhq/react-native-navigation-redux-helpers)
-[![Test Coverage](https://codeclimate.com/github/bakeryhq/react-native-navigation-redux-helpers/badges/coverage.svg)](https://codeclimate.com/github/bakeryhq/react-native-navigation-redux-helpers)
-[![Dependency Status](https://david-dm.org/bakeryhq/react-native-navigation-redux-helpers.svg)](https://david-dm.org/bakeryhq/react-native-navigation-redux-helpers)
-[![devDependency Status](https://david-dm.org/bakeryhq/react-native-navigation-redux-helpers/dev-status.svg)](https://david-dm.org/bakeryhq/react-native-navigation-redux-helpers#info=devDependencies)
+[![Travis build status](http://img.shields.io/travis/thebakeryio/react-native-navigation-redux-helpers.svg?style=flat)](https://travis-ci.org/thebakeryio/react-native-navigation-redux-helpers)
+[![Code Climate](https://codeclimate.com/github/thebakeryio/react-native-navigation-redux-helpers/badges/gpa.svg)](https://codeclimate.com/github/thebakeryio/react-native-navigation-redux-helpers)
+[![Test Coverage](https://codeclimate.com/github/thebakeryio/react-native-navigation-redux-helpers/badges/coverage.svg)](https://codeclimate.com/github/thebakeryio/react-native-navigation-redux-helpers)
+[![Dependency Status](https://david-dm.org/thebakeryio/react-native-navigation-redux-helpers.svg)](https://david-dm.org/thebakeryio/react-native-navigation-redux-helpers)
+[![devDependency Status](https://david-dm.org/thebakeryio/react-native-navigation-redux-helpers/dev-status.svg)](https://david-dm.org/thebakeryio/react-native-navigation-redux-helpers#info=devDependencies)
 
 Reducers and actions to implement navigation in React Native applications (RN 0.28.0+)
 
