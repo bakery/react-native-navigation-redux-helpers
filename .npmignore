@@ -29,3 +29,9 @@ tmp
 
 # Users Environment Variables
 .lock-wscript
+
+# Source code
+src
+
+# babelrc (otherwise react native gets confused somehow)
+.babelrc

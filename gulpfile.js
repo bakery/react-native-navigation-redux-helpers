@@ -62,12 +62,24 @@ function build() {
       //   jquery: true
       // }
       // would externalize the `jquery` module.
-      externals: {},
+      // externals: {},
+       externals: [
+        {
+          'react-native': true
+          // a: false, // a is not external
+          // b: true, // b is external (require("b"))
+          // "./c": "c", // "./c" is external (require("c"))
+          // "./d": "var d" // "./d" is external (d)
+        }
+      ],
       module: {
         loaders: [
           { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
         ]
       },
+      // plugins: [
+      //   new webpack.IgnorePlugin(new RegExp("/react-native/"))
+      // ], 
       devtool: 'source-map'
     }))
     .pipe(gulp.dest(destinationFolder))
@@ -92,8 +104,14 @@ function _registerBabel() {
   require('babel-register');
 }
 
+function _registerTestBabel() {
+  require('babel-register')({
+    plugins: ['babel-plugin-rewire']
+  });
+}
+
 function test() {
-  _registerBabel();
+  _registerTestBabel();
   return _mocha();
 }
 
@@ -140,7 +158,7 @@ function testBrowser() {
       module: {
         loaders: [
           // This is what allows us to author in future JavaScript
-          { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+          { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?plugins=babel-plugin-rewire' },
           // This allows the test setup scripts to load `package.json`
           { test: /\.json$/, exclude: /node_modules/, loader: 'json-loader' }
         ]

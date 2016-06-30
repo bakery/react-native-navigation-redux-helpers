@@ -1,21 +1,19 @@
-import { PUSH_ROUTE, POP_ROUTE } from '../constants';
 import { checkInitialState, isActionPotentiallyApplicable, getStateUtils } from './helpers';
+import { JUMP_TO } from '../constants';
 
 const StateUtils = getStateUtils();
 
-export function cardStackReducer(initialState) {
+export function tabReducer(initialState) {
   checkInitialState(initialState);
 
-  return function cardStackReducerFn(state = initialState, action) {
+  return function tabReducerFn(state = initialState, action) {
     if (!isActionPotentiallyApplicable(action, state.key)) {
       return state;
     }
 
     switch(action.type) {
-      case PUSH_ROUTE:
-        return StateUtils.push(state, action.payload.route);
-      case POP_ROUTE:
-        return StateUtils.pop(state);
+      case JUMP_TO:
+        return StateUtils.jumpToIndex(state, action.payload.routeIndex);
       default:
         return state;
     }

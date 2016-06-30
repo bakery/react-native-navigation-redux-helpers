@@ -1,3 +1,3 @@
-export const JUMP_TO_TAB = 'react-native-navigation-redux-helpers/JUMP_TO_TAB';
+export const JUMP_TO = 'react-native-navigation-redux-helpers/JUMP_TO';
 export const PUSH_ROUTE = 'react-native-navigation-redux-helpers/PUSH_ROUTE';
-export const BACK = 'react-native-navigation-redux-helpers/BACK';
+export const POP_ROUTE = 'react-native-navigation-redux-helpers/POP_ROUTE';

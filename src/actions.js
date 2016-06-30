@@ -1,4 +1,4 @@
-import { PUSH_ROUTE, BACK, JUMP_TO_TAB } from './constants';
+import { PUSH_ROUTE, POP_ROUTE, JUMP_TO } from './constants';
 
 export function pushRoute (route, key) {
   if (!key) {
@@ -14,28 +14,28 @@ export function pushRoute (route, key) {
   };
 }
 
-export function goBack (key) {
+export function popRoute (key) {
   if (!key) {
-    throw new Error('goBack requires key argument');
+    throw new Error('popRoute requires key argument');
   }
 
   return {
-    type: BACK,
+    type: POP_ROUTE,
     payload: {
       key
     }
   };
 }
 
-export function jumpTo(tabIndex, key) {
+export function jumpTo(routeIndex, key) {
   if (!key) {
     throw new Error('jumpTo requires key argument');
   }
 
   return {
-    type: JUMP_TO_TAB,
+    type: JUMP_TO,
     payload: {
-      tabIndex,
+      routeIndex,
       key,
     }
   };
