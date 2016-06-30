@@ -103,8 +103,10 @@ function test() {
 }
 
 function coverage(done) {
-  _registerBabel();
   gulp.src(['src/**/*.js'])
+    .pipe($.babel({
+      plugins: ['babel-plugin-rewire']
+     }))
     .pipe($.istanbul({ instrumenter: Instrumenter }))
     .pipe($.istanbul.hookRequire())
     .on('finish', () => {
