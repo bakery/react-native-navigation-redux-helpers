@@ -57,19 +57,9 @@ function build() {
         libraryTarget: 'umd',
         library: config.mainVarName
       },
-      // Add your own externals here. For instance,
-      // {
-      //   jquery: true
-      // }
-      // would externalize the `jquery` module.
-      // externals: {},
        externals: [
         {
           'react-native': true
-          // a: false, // a is not external
-          // b: true, // b is external (require("b"))
-          // "./c": "c", // "./c" is external (require("c"))
-          // "./d": "var d" // "./d" is external (d)
         }
       ],
       module: {
@@ -77,9 +67,6 @@ function build() {
           { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
         ]
       },
-      // plugins: [
-      //   new webpack.IgnorePlugin(new RegExp("/react-native/"))
-      // ], 
       devtool: 'source-map'
     }))
     .pipe(gulp.dest(destinationFolder))
