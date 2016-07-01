@@ -1,7 +1,7 @@
 import {
   JUMP_TO,
   PUSH_ROUTE,
-  POP_ROUTE,
+  POP_ROUTE
 } from '../../src/constants';
 
 describe('constants', () => {

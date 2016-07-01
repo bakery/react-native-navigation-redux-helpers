@@ -5,13 +5,13 @@ import {
 const { 
   JUMP_TO,
   PUSH_ROUTE,
-  POP_ROUTE,
+  POP_ROUTE
 } = constants;
 
 const {
   pushRoute,
   popRoute, 
-  jumpTo,
+  jumpTo
 } = actions;
 
 describe('react-native-navigation-redux-helpers', () => {

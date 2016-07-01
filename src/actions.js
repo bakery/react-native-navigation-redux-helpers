@@ -9,7 +9,7 @@ export function pushRoute (route, key) {
     type: PUSH_ROUTE,
     payload: {
       route,
-      key,
+      key
     }
   };
 }
@@ -36,7 +36,7 @@ export function jumpTo(routeIndex, key) {
     type: JUMP_TO,
     payload: {
       routeIndex,
-      key,
+      key
     }
   };
 }

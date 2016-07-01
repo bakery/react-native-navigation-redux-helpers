@@ -12,7 +12,7 @@ export const constants = {
 export const actions = {
   pushRoute,
   popRoute, 
-  jumpTo,
+  jumpTo
 };
 
 export const cardStackReducer = csr;

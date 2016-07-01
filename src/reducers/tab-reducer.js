@@ -18,4 +18,4 @@ export function tabReducer(initialState) {
         return state;
     }
   };
-};
+}

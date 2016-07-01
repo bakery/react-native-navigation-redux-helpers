@@ -14,17 +14,19 @@ export function checkInitialState(initialState) {
   if (!(initialState.routes instanceof Array)) {
     throw Error('initialState must have an attribute **route** which is an array');
   }
-};
+}
 
 export function isActionPotentiallyApplicable(action, navigationKey) {
   return action && action.payload && (action.payload.key === navigationKey);
-};
+}
 
 export function getStateUtils() {
   try {
     const { NavigationExperimental } = require('react-native');
     return NavigationExperimental.StateUtils;
-  } catch(e) {}
+  } catch(e) {
+    // no-op
+  }
 
   return {};
-};
+}

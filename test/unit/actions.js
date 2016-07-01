@@ -1,12 +1,12 @@
 import {
   pushRoute,
   popRoute, 
-  jumpTo,
+  jumpTo
 } from '../../src/actions';
 import {
   JUMP_TO,
   PUSH_ROUTE,
-  POP_ROUTE,
+  POP_ROUTE
 } from '../../src/constants';
 
 

@@ -88,6 +88,7 @@ function _mocha() {
 }
 
 function _registerBabel() {
+  // eslint-disable-line global-require
   require('babel-register');
 }
 

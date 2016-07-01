@@ -3,7 +3,7 @@ import { __RewireAPI__ as tabReducerAPI, tabReducer } from '../../src/reducers/t
 import {
   pushRoute,
   popRoute, 
-  jumpTo,
+  jumpTo
 } from '../../src/actions';
 
 const cardStackInitialState = {
