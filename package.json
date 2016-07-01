@@ -1,6 +1,6 @@
 {
   "name": "react-native-navigation-redux-helpers",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Redux helpers for React Native navigation",
   "main": "dist/index.js",
   "scripts": {
