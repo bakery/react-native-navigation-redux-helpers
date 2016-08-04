@@ -1,9 +1,9 @@
-import { PUSH_ROUTE, POP_ROUTE, JUMP_TO } from './constants';
+import { PUSH_ROUTE, POP_ROUTE, JUMP_TO , RESET_ROUTE } from './constants';
 
 export function pushRoute (route, key) {
   if (!key) {
     throw new Error('pushRoute requires key argument');
-  } 
+  }
 
   return {
     type: PUSH_ROUTE,
@@ -39,4 +39,16 @@ export function jumpTo(routeIndex, key) {
       key
     }
   };
+}
+
+export function reset(routes, key){
+  if (!key) {
+    throw new Error('Reset requires key argument');
+  }
+  return {
+    type : RESET_ROUTE,
+    payload : {
+      routes
+    }
+  }
 }
