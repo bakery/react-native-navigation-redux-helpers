@@ -1,18 +1,17 @@
 import { PUSH_ROUTE,
-         POP_ROUTE,
-         JUMP_TO ,
-         RESET_ROUTE,
-         REPLACE_AT,
-         REPLACE_AT_INDEX,
-         JUMP_TO,
-         JUMP_TO_INDEX,
-         BACK,
-         FORWARD,
-         GET,
-         HAS,
-         INDEX_OF } from './constants';
+  POP_ROUTE,
+  RESET_ROUTE,
+  REPLACE_AT,
+  REPLACE_AT_INDEX,
+  JUMP_TO,
+  JUMP_TO_INDEX,
+  BACK,
+  FORWARD,
+  GET,
+  HAS,
+  INDEX_OF } from './constants';
 
-export function pushRoute (route, key) {
+export function pushRoute(route, key) {
   if (!key) {
     throw new Error('pushRoute requires key argument');
   }
@@ -26,7 +25,7 @@ export function pushRoute (route, key) {
   };
 }
 
-export function popRoute (key) {
+export function popRoute(key) {
   if (!key) {
     throw new Error('popRoute requires key argument');
   }
@@ -53,13 +52,13 @@ export function jumpTo(routeIndex, key) {
   };
 }
 
-export function reset(routes, key){
+export function reset(routes, key) {
   if (!key) {
     throw new Error('Reset requires key argument');
   }
   return {
-    type : RESET_ROUTE,
-    payload :
+    type: RESET_ROUTE,
+    payload:
     {
       routes,
       key
@@ -67,14 +66,14 @@ export function reset(routes, key){
   }
 }
 
-export function replaceAt(routeKey, route , key){
-  if(!key){
+export function replaceAt(routeKey, route, key) {
+  if (!key) {
     throw new Error('Replace At requires key argument');
   }
 
-  return{
-    type : REPLACE_AT,
-    payload :
+  return {
+    type: REPLACE_AT,
+    payload:
     {
       index,
       routeKey,
@@ -83,14 +82,14 @@ export function replaceAt(routeKey, route , key){
   }
 }
 
-export function replaceAtIndex(index,route, key){
-  if(!key){
+export function replaceAtIndex(index, route, key) {
+  if (!key) {
     throw new Error('Replace At Index requires key argument');
   }
 
-  return{
-    type : REPLACE_AT_INDEX,
-    payload :
+  return {
+    type: REPLACE_AT_INDEX,
+    payload:
     {
       index,
       route,
@@ -100,14 +99,14 @@ export function replaceAtIndex(index,route, key){
 }
 
 
-export function jumpToIndex(index,route, key){
-  if(!key){
+export function jumpToIndex(index, route, key) {
+  if (!key) {
     throw new Error('Jump to Index requires key argument');
   }
 
-  return{
-    type : JUMP_TO_INDEX,
-    payload :
+  return {
+    type: JUMP_TO_INDEX,
+    payload:
     {
       index,
       route,
@@ -116,7 +115,7 @@ export function jumpToIndex(index,route, key){
   }
 }
 
-export function back (key) {
+export function back(key) {
   if (!key) {
     throw new Error('popRoute requires key argument');
   }
@@ -129,7 +128,7 @@ export function back (key) {
   };
 }
 
-export function forward (key) {
+export function forward(key) {
   if (!key) {
     throw new Error('popRoute requires key argument');
   }
@@ -142,7 +141,7 @@ export function forward (key) {
   };
 }
 
-export function get (routeKey , key) {
+export function get(routeKey, key) {
   if (!key) {
     throw new Error('get requires key argument');
   }
@@ -156,7 +155,7 @@ export function get (routeKey , key) {
   };
 }
 
-export function has (routeKey , key) {
+export function has(routeKey, key) {
   if (!key) {
     throw new Error('has requires key argument');
   }
@@ -170,7 +169,7 @@ export function has (routeKey , key) {
   };
 }
 
-export function indexOf (routeKey ,key) {
+export function indexOf(routeKey, key) {
   if (!key) {
     throw new Error('popRoute requires key argument');
   }
