@@ -17,6 +17,7 @@ const StateUtils = getStateUtils();
 export function cardStackReducer(initialState) {
   checkInitialState(initialState);
 
+  // eslint-disable-next-line complexity
   return function cardStackReducerFn(state = initialState, action) {
     if (!isActionPotentiallyApplicable(action, state.key)) {
       return state;
