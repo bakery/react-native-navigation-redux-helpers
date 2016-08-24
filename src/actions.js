@@ -74,10 +74,9 @@ export function replaceAt(routeKey, route, key) {
 
   return {
     type: REPLACE_AT,
-    payload:
-    {
-      index,
+    payload: {
       routeKey,
+      route,
       key
     }
   }

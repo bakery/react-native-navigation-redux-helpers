@@ -2,7 +2,8 @@ import {
   JUMP_TO,
   PUSH_ROUTE,
   POP_ROUTE,
-  RESET_ROUTE
+  RESET_ROUTE,
+  REPLACE_AT
 } from '../../src/constants';
 
 describe('constants', () => {
@@ -21,6 +22,10 @@ describe('constants', () => {
 
     it('RESET_ROUTE is defined', () => {
       expect(RESET_ROUTE).to.be.ok;
+    });
+
+    it('REPLACE_AT is defined', () => {
+      expect(REPLACE_AT).to.be.ok;
     });
   });
 });

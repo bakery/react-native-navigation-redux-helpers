@@ -4,7 +4,8 @@ import {
   pushRoute,
   popRoute, 
   jumpTo,
-  reset
+  reset,
+  replaceAt
 } from '../../src/actions';
 
 const cardStackInitialState = {
@@ -32,7 +33,7 @@ const tabInitialState = {
 }
 
 describe('reducers', () => {
-  let pushSpy, popSpy, jumpToIndexSpy, resetSpy;
+  let pushSpy, popSpy, jumpToIndexSpy, resetSpy, replaceAtSpy;
   const StateUtils = {
     push(state, action) {
       return 'StateUtils.push';
@@ -48,6 +49,10 @@ describe('reducers', () => {
 
     reset(state, routes, index) {
       return 'StateUtils.reset';
+    },
+
+    replaceAt(state, key, route) {
+      return 'StateUtils.replaceAt';
     }
   };
 
@@ -73,12 +78,14 @@ describe('reducers', () => {
       pushSpy = spy(StateUtils, 'push');
       popSpy = spy(StateUtils, 'pop');
       resetSpy = spy(StateUtils, 'reset');
+      replaceAtSpy = spy(StateUtils, 'replaceAt');
     });
 
     afterEach(() => {
       StateUtils.push.restore();
       StateUtils.pop.restore();
       StateUtils.reset.restore();
+      StateUtils.replaceAt.restore();
       cardStackReducerAPI.__ResetDependency__('StateUtils');
     });
 
@@ -150,11 +157,23 @@ describe('reducers', () => {
 
     it('calls RN\'s StateUtils.reset with index when reset action has index data', () => {
       const action = reset(cardStackInitialState.key, 1);
-      const returnValue = reducer(cardStackInitialState, action);
+      reducer(cardStackInitialState, action);
 
       expect(resetSpy).to.have.been.calledOnce;
       expect(resetSpy).to.have.been.calledWith(
         cardStackInitialState, cardStackInitialState.routes, 1);
+    });
+
+    it('calls RN\'s StateUtils.replaceAt when replaceAt action arrives', () => {
+      const routeKey = 'old-key';
+      const route = { key: 'new-route' };
+      const action = replaceAt(routeKey, route, cardStackInitialState.key);
+      reducer(cardStackInitialState, action);
+
+      expect(replaceAtSpy).to.have.been.calledOnce;
+      expect(replaceAtSpy).to.have.been.calledWith(
+        cardStackInitialState, routeKey, route
+      );
     });
   });
 

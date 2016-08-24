@@ -2,13 +2,15 @@ import {
   pushRoute,
   popRoute, 
   jumpTo,
-  reset
+  reset,
+  replaceAt
 } from '../../src/actions';
 import {
   JUMP_TO,
   PUSH_ROUTE,
   POP_ROUTE,
-  RESET_ROUTE
+  RESET_ROUTE,
+  REPLACE_AT
 } from '../../src/constants';
 
 const navigationKey = 'nav-key';
@@ -93,6 +95,18 @@ describe('actions', () => {
       const actionData = reset(navigationKey, 1);
       expect(actionData.payload).to.be.ok;
       expect(actionData.payload.index).to.equal(1);
+    });
+  });
+
+  describe('replaceAt', () => {
+    it('returns a message with type set to REPLACE_AT + proper payload', () => {
+      const route = { key: 'new route' };
+      const routeKey = 'old route';
+      const actionData = replaceAt(routeKey, route, navigationKey);
+      expect(actionData.type).to.equal(REPLACE_AT);
+      expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.routeKey).to.equal(routeKey);
+      expect(actionData.payload.route).to.equal(route);
     });
   });
 });
