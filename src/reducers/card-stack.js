@@ -1,4 +1,5 @@
-import { PUSH_ROUTE,
+import {
+  PUSH_ROUTE,
   POP_ROUTE,
   RESET_ROUTE,
   REPLACE_AT,
@@ -9,8 +10,14 @@ import { PUSH_ROUTE,
   FORWARD,
   GET,
   HAS,
-  INDEX_OF } from '../constants';
-import { checkInitialState, isActionPotentiallyApplicable, getStateUtils } from './helpers';
+  INDEX_OF
+} from '../constants';
+
+import {
+  checkInitialState,
+  isActionPotentiallyApplicable,
+  getStateUtils
+} from './helpers';
 
 const StateUtils = getStateUtils();
 

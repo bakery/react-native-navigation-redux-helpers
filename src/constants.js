@@ -1,12 +1,14 @@
-export const JUMP_TO = 'react-native-navigation-redux-helpers/JUMP_TO';
-export const PUSH_ROUTE = 'react-native-navigation-redux-helpers/PUSH_ROUTE';
-export const POP_ROUTE = 'react-native-navigation-redux-helpers/POP_ROUTE';
-export const RESET_ROUTE = 'react-native-navigation-redux-helpers/RESET_ROUTE';
-export const REPLACE_AT = 'react-native-navigation-redux-helpers/REPLACE_AT';
-export const REPLACE_AT_INDEX = 'react-native-navigation-redux-helpers/REPLACE_AT_INDEX';
-export const JUMP_TO_INDEX = 'react-native-navigation-redux-helpers/JUMP_TO_INDEX';
-export const BACK = 'react-native-navigation-redux-helpers/BACK';
-export const FORWARD = 'react-native-navigation-redux-helpers/FORWARD';
-export const GET = 'react-native-navigation-redux-helpers/GET';
-export const HAS = 'react-native-navigation-redux-helpers/HAS';
-export const INDEX_OF = 'react-native-navigation-redux-helpers/INDEX_OF';
+const prefix = 'react-native-navigation-redux-helpers/';
+
+export const JUMP_TO = `${prefix}JUMP_TO`;
+export const PUSH_ROUTE = `${prefix}PUSH_ROUTE`;
+export const POP_ROUTE = `${prefix}POP_ROUTE`;
+export const RESET_ROUTE = `${prefix}RESET_ROUTE`;
+export const REPLACE_AT = `${prefix}REPLACE_AT`;
+export const REPLACE_AT_INDEX = `${prefix}REPLACE_AT_INDEX`;
+export const JUMP_TO_INDEX = `${prefix}JUMP_TO_INDEX`;
+export const BACK = `${prefix}BACK`;
+export const FORWARD = `${prefix}FORWARD`;
+export const GET = `${prefix}GET`;
+export const HAS = `${prefix}HAS`;
+export const INDEX_OF = `${prefix}INDEX_OF`;

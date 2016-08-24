@@ -1,4 +1,5 @@
-import { PUSH_ROUTE,
+import {
+  PUSH_ROUTE,
   POP_ROUTE,
   RESET_ROUTE,
   REPLACE_AT,
@@ -9,7 +10,8 @@ import { PUSH_ROUTE,
   FORWARD,
   GET,
   HAS,
-  INDEX_OF } from './constants';
+  INDEX_OF
+} from './constants';
 
 export function pushRoute(route, key) {
   if (!key) {
