@@ -99,17 +99,15 @@ export function replaceAtIndex(index, route, key) {
 }
 
 
-export function jumpToIndex(index, route, key) {
+export function jumpToIndex(index, key) {
   if (!key) {
     throw new Error('Jump to Index requires key argument');
   }
 
   return {
     type: JUMP_TO_INDEX,
-    payload:
-    {
+    payload: {
       index,
-      route,
       key
     }
   }

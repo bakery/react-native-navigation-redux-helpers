@@ -6,7 +6,8 @@ import {
   jumpTo,
   reset,
   replaceAt,
-  replaceAtIndex
+  replaceAtIndex,
+  jumpToIndex
 } from '../../src/actions';
 
 const cardStackInitialState = {

@@ -4,7 +4,8 @@ import {
   jumpTo,
   reset,
   replaceAt,
-  replaceAtIndex
+  replaceAtIndex,
+  jumpToIndex
 } from '../../src/actions';
 import {
   JUMP_TO,
@@ -12,7 +13,8 @@ import {
   POP_ROUTE,
   RESET_ROUTE,
   REPLACE_AT,
-  REPLACE_AT_INDEX
+  REPLACE_AT_INDEX,
+  JUMP_TO_INDEX
 } from '../../src/constants';
 
 const navigationKey = 'nav-key';
@@ -121,6 +123,16 @@ describe('actions', () => {
       expect(actionData.payload).to.be.ok;
       expect(actionData.payload.index).to.equal(index);
       expect(actionData.payload.route).to.equal(route);
+    });
+  });
+
+  describe('jumpToIndex', () => {
+    it('returns a message with type set to JUMP_TO_INDEX + proper payload', () => {
+      const index = 1;
+      const actionData = jumpToIndex(index, navigationKey);
+      expect(actionData.type).to.equal(JUMP_TO_INDEX);
+      expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.index).to.equal(index);
     });
   });
 });

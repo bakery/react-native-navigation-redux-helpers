@@ -4,7 +4,8 @@ import {
   POP_ROUTE,
   RESET_ROUTE,
   REPLACE_AT,
-  REPLACE_AT_INDEX
+  REPLACE_AT_INDEX,
+  JUMP_TO_INDEX
 } from '../../src/constants';
 
 describe('constants', () => {
@@ -31,6 +32,10 @@ describe('constants', () => {
 
     it('REPLACE_AT_INDEX is defined', () => {
       expect(REPLACE_AT_INDEX).to.be.ok;
+    });
+
+    it('JUMP_TO_INDEX is defined', () => {
+      expect(JUMP_TO_INDEX).to.be.ok;
     });
   });
 });
