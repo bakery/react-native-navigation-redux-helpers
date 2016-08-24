@@ -3,7 +3,8 @@ import {
   PUSH_ROUTE,
   POP_ROUTE,
   RESET_ROUTE,
-  REPLACE_AT
+  REPLACE_AT,
+  REPLACE_AT_INDEX
 } from '../../src/constants';
 
 describe('constants', () => {
@@ -26,6 +27,10 @@ describe('constants', () => {
 
     it('REPLACE_AT is defined', () => {
       expect(REPLACE_AT).to.be.ok;
+    });
+
+    it('REPLACE_AT_INDEX is defined', () => {
+      expect(REPLACE_AT_INDEX).to.be.ok;
     });
   });
 });

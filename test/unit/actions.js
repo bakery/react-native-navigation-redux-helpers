@@ -3,14 +3,16 @@ import {
   popRoute, 
   jumpTo,
   reset,
-  replaceAt
+  replaceAt,
+  replaceAtIndex
 } from '../../src/actions';
 import {
   JUMP_TO,
   PUSH_ROUTE,
   POP_ROUTE,
   RESET_ROUTE,
-  REPLACE_AT
+  REPLACE_AT,
+  REPLACE_AT_INDEX
 } from '../../src/constants';
 
 const navigationKey = 'nav-key';
@@ -106,6 +108,18 @@ describe('actions', () => {
       expect(actionData.type).to.equal(REPLACE_AT);
       expect(actionData.payload).to.be.ok;
       expect(actionData.payload.routeKey).to.equal(routeKey);
+      expect(actionData.payload.route).to.equal(route);
+    });
+  });
+
+  describe('replaceAtIndex', () => {
+    it('returns a message with type set to REPLACE_AT_INDEX + proper payload', () => {
+      const route = { key: 'new route' };
+      const index = 1;
+      const actionData = replaceAtIndex(index, route, navigationKey);
+      expect(actionData.type).to.equal(REPLACE_AT_INDEX);
+      expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.index).to.equal(index);
       expect(actionData.payload.route).to.equal(route);
     });
   });

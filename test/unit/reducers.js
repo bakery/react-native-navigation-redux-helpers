@@ -5,7 +5,8 @@ import {
   popRoute, 
   jumpTo,
   reset,
-  replaceAt
+  replaceAt,
+  replaceAtIndex
 } from '../../src/actions';
 
 const cardStackInitialState = {
@@ -33,7 +34,8 @@ const tabInitialState = {
 }
 
 describe('reducers', () => {
-  let pushSpy, popSpy, jumpToIndexSpy, resetSpy, replaceAtSpy;
+  let pushSpy, popSpy, jumpToIndexSpy,
+    resetSpy, replaceAtSpy, replaceAtIndexSpy;
   const StateUtils = {
     push(state, action) {
       return 'StateUtils.push';
@@ -53,6 +55,10 @@ describe('reducers', () => {
 
     replaceAt(state, key, route) {
       return 'StateUtils.replaceAt';
+    },
+
+    replaceAtIndex(state, index, route) {
+      return 'StateUtils.replaceAtIndex';
     }
   };
 
@@ -79,6 +85,7 @@ describe('reducers', () => {
       popSpy = spy(StateUtils, 'pop');
       resetSpy = spy(StateUtils, 'reset');
       replaceAtSpy = spy(StateUtils, 'replaceAt');
+      replaceAtIndexSpy = spy(StateUtils, 'replaceAtIndex');
     });
 
     afterEach(() => {
@@ -86,6 +93,7 @@ describe('reducers', () => {
       StateUtils.pop.restore();
       StateUtils.reset.restore();
       StateUtils.replaceAt.restore();
+      StateUtils.replaceAtIndex.restore();
       cardStackReducerAPI.__ResetDependency__('StateUtils');
     });
 
@@ -173,6 +181,18 @@ describe('reducers', () => {
       expect(replaceAtSpy).to.have.been.calledOnce;
       expect(replaceAtSpy).to.have.been.calledWith(
         cardStackInitialState, routeKey, route
+      );
+    });
+
+    it('calls RN\'s StateUtils.replaceAtIndex when replaceAtIndex action arrives', () => {
+      const index = 1;
+      const route = { key: 'new-route' };
+      const action = replaceAtIndex(index, route, cardStackInitialState.key);
+      reducer(cardStackInitialState, action);
+
+      expect(replaceAtIndexSpy).to.have.been.calledOnce;
+      expect(replaceAtIndexSpy).to.have.been.calledWith(
+        cardStackInitialState, index, route
       );
     });
   });
