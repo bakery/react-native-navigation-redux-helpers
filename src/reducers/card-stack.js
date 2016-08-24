@@ -36,7 +36,7 @@ export function cardStackReducer(initialState) {
       case POP_ROUTE:
         return StateUtils.pop(state);
       case RESET_ROUTE:
-        return StateUtils.reset(state, action.payload.routes);
+        return StateUtils.reset(state, state.routes, action.payload.index);
       case REPLACE_AT:
         return StateUtils.replaceAt(state, action.payload.routes);
       case REPLACE_AT_INDEX:

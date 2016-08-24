@@ -1,7 +1,8 @@
 import {
   JUMP_TO,
   PUSH_ROUTE,
-  POP_ROUTE
+  POP_ROUTE,
+  RESET_ROUTE
 } from '../../src/constants';
 
 describe('constants', () => {
@@ -16,6 +17,10 @@ describe('constants', () => {
 
     it('POP_ROUTE is defined', () => {
       expect(POP_ROUTE).to.be.ok;
+    });
+
+    it('RESET_ROUTE is defined', () => {
+      expect(RESET_ROUTE).to.be.ok;
     });
   });
 });
