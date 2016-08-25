@@ -7,10 +7,7 @@ import {
   JUMP_TO,
   JUMP_TO_INDEX,
   BACK,
-  FORWARD,
-  GET,
-  HAS,
-  INDEX_OF
+  FORWARD
 } from '../constants';
 
 import {
@@ -49,12 +46,6 @@ export function cardStackReducer(initialState) {
         return StateUtils.back(state);
       case FORWARD:
         return StateUtils.forward(state);
-      case GET:
-        return StateUtils.get(state, action.payload.routeKey);
-      case HAS:
-        return StateUtils.has(state, action.payload.routeKey);
-      case INDEX_OF:
-        return StateUtils.indexOf(state, action.payload.routeKey);
       default:
         return state;
     }
