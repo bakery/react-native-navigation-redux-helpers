@@ -1,14 +1,27 @@
 import {
   pushRoute,
   popRoute, 
-  jumpTo
+  jumpTo,
+  reset,
+  replaceAt,
+  replaceAtIndex,
+  jumpToIndex,
+  back,
+  forward
 } from '../../src/actions';
 import {
   JUMP_TO,
   PUSH_ROUTE,
-  POP_ROUTE
+  POP_ROUTE,
+  RESET_ROUTE,
+  REPLACE_AT,
+  REPLACE_AT_INDEX,
+  JUMP_TO_INDEX,
+  BACK,
+  FORWARD
 } from '../../src/constants';
 
+const navigationKey = 'nav-key';
 
 describe('actions', () => {
   describe('definitions', () => {
@@ -26,6 +39,11 @@ describe('actions', () => {
       expect(jumpTo).to.be.ok;
       expect(typeof jumpTo === 'function').to.be.true;
     });
+
+    it('reset action is defined', () => {
+      expect(reset).to.be.ok;
+      expect(typeof reset === 'function').to.be.true;
+    });
   });
 
   describe('all actions', () => {
@@ -42,7 +60,6 @@ describe('actions', () => {
 
   describe('pushRoute', () => {
     it('returns a message with type set to PUSH_ROUTE and appropriate payload', () => {
-      const navigationKey = 'nav-key';
       const route = { key: 'route', data : {} };
       const actionData = pushRoute(route, navigationKey);
 
@@ -55,7 +72,6 @@ describe('actions', () => {
 
   describe('popRoute', () => {
     it('returns a message with type set to POP_ROUTE and appropriate payload', () => {
-      const navigationKey = 'nav-key';
       const actionData = popRoute(navigationKey);
 
       expect(actionData.type).to.equal(POP_ROUTE);
@@ -64,14 +80,90 @@ describe('actions', () => {
   });
 
   describe('jumpTo', () => {
-    it('returns a message with type set to JUMP_TO and appropriate payload', () => {
-      const navigationKey = 'nav-key';
+    it('returns a message with type set to JUMP_TO_INDEX and appropriate payload with index first arg', () => {    
       const tabIndex = 3;
       const actionData = jumpTo(tabIndex, navigationKey);
 
-      expect(actionData.type).to.equal(JUMP_TO);
+      expect(actionData.type).to.equal(JUMP_TO_INDEX);
       expect(actionData.payload).to.be.ok;
       expect(actionData.payload.routeIndex).to.equal(tabIndex);
+      expect(actionData.payload.key).to.equal(navigationKey);
+    });
+
+    it('supports string key first argument and returns message with type JUMP_TO and proper payload', () => {
+      const routeKey = 'key';
+      const actionData = jumpTo(routeKey, navigationKey);
+
+      expect(actionData.type).to.equal(JUMP_TO);
+      expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.routeKey).to.equal(routeKey);
+      expect(actionData.payload.key).to.equal(navigationKey);
+    });
+  });
+
+  describe('reset', () => {
+    it('returns a message with type set to RESET_ROUTE', () => {
+      const actionData = reset(navigationKey);
+      expect(actionData.type).to.equal(RESET_ROUTE);
+      expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.key).to.equal(navigationKey);
+    });
+
+    it('returns a message with payload.index set to index passed as second arg', () => {
+      const actionData = reset(navigationKey, 1);
+      expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.index).to.equal(1);
+    });
+  });
+
+  describe('replaceAt', () => {
+    it('returns a message with type set to REPLACE_AT + proper payload', () => {
+      const route = { key: 'new route' };
+      const routeKey = 'old route';
+      const actionData = replaceAt(routeKey, route, navigationKey);
+      expect(actionData.type).to.equal(REPLACE_AT);
+      expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.routeKey).to.equal(routeKey);
+      expect(actionData.payload.route).to.equal(route);
+    });
+  });
+
+  describe('replaceAtIndex', () => {
+    it('returns a message with type set to REPLACE_AT_INDEX + proper payload', () => {
+      const route = { key: 'new route' };
+      const index = 1;
+      const actionData = replaceAtIndex(index, route, navigationKey);
+      expect(actionData.type).to.equal(REPLACE_AT_INDEX);
+      expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.index).to.equal(index);
+      expect(actionData.payload.route).to.equal(route);
+    });
+  });
+
+  describe('jumpToIndex', () => {
+    it('returns a message with type set to JUMP_TO_INDEX + proper payload', () => {
+      const index = 1;
+      const actionData = jumpToIndex(index, navigationKey);
+      expect(actionData.type).to.equal(JUMP_TO_INDEX);
+      expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.routeIndex).to.equal(index);
+    });
+  });
+
+  describe('back', () => {
+    it('returns a message with type set to BACK + proper payload', () => {
+      const actionData = back(navigationKey);
+      expect(actionData.type).to.equal(BACK);
+      expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.key).to.equal(navigationKey);
+    });
+  });
+
+  describe('forward', () => {
+    it('returns a message with type set to FORWARD + proper payload', () => {
+      const actionData = forward(navigationKey);
+      expect(actionData.type).to.equal(FORWARD);
+      expect(actionData.payload).to.be.ok;
       expect(actionData.payload.key).to.equal(navigationKey);
     });
   });

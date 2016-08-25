@@ -3,7 +3,13 @@ import { __RewireAPI__ as tabReducerAPI, tabReducer } from '../../src/reducers/t
 import {
   pushRoute,
   popRoute, 
-  jumpTo
+  jumpTo,
+  reset,
+  replaceAt,
+  replaceAtIndex,
+  jumpToIndex,
+  back,
+  forward
 } from '../../src/actions';
 
 const cardStackInitialState = {
@@ -31,7 +37,10 @@ const tabInitialState = {
 }
 
 describe('reducers', () => {
-  let pushSpy, popSpy, jumpToIndexSpy;
+  let pushSpy, popSpy, jumpToIndexSpy, jumpToSpy,
+    resetSpy, replaceAtSpy, replaceAtIndexSpy,
+    backSpy, forwardSpy;
+  
   const StateUtils = {
     push(state, action) {
       return 'StateUtils.push';
@@ -41,8 +50,32 @@ describe('reducers', () => {
       return 'StateUtils.pop';
     },
 
-    jumpToIndex(state) {
+    jumpTo(state, key) {
+      return 'StateUtils.jumpTo';
+    },
+
+    jumpToIndex(state, index) {
       return 'StateUtils.jumpToIndex';
+    },
+
+    reset(state, routes, index) {
+      return 'StateUtils.reset';
+    },
+
+    replaceAt(state, key, route) {
+      return 'StateUtils.replaceAt';
+    },
+
+    replaceAtIndex(state, index, route) {
+      return 'StateUtils.replaceAtIndex';
+    },
+
+    back(state) {
+      return 'StateUtils.back';
+    },
+
+    forward(state) {
+      return 'StateUtils.forward';
     }
   };
 
@@ -59,15 +92,33 @@ describe('reducers', () => {
   });
 
   describe('cardStackReducer', () => {
+    let reducer;
+
     beforeEach(() => {
+      reducer = cardStackReducer(cardStackInitialState);
+
       cardStackReducerAPI.__Rewire__('StateUtils', StateUtils);
       pushSpy = spy(StateUtils, 'push');
       popSpy = spy(StateUtils, 'pop');
+      resetSpy = spy(StateUtils, 'reset');
+      replaceAtSpy = spy(StateUtils, 'replaceAt');
+      replaceAtIndexSpy = spy(StateUtils, 'replaceAtIndex');
+      jumpToSpy = spy(StateUtils, 'jumpTo');
+      jumpToIndexSpy = spy(StateUtils, 'jumpToIndex');
+      backSpy = spy(StateUtils, 'back');
+      forwardSpy = spy(StateUtils, 'forward');
     });
 
     afterEach(() => {
       StateUtils.push.restore();
       StateUtils.pop.restore();
+      StateUtils.reset.restore();
+      StateUtils.replaceAt.restore();
+      StateUtils.replaceAtIndex.restore();
+      StateUtils.jumpTo.restore();
+      StateUtils.jumpToIndex.restore();
+      StateUtils.back.restore();
+      StateUtils.forward.restore();
       cardStackReducerAPI.__ResetDependency__('StateUtils');
     });
 
@@ -82,24 +133,18 @@ describe('reducers', () => {
     });
 
     it('returns a function', () => {
-      const reducer = cardStackReducer(cardStackInitialState);
       expect(typeof reducer === 'function').to.be.true;
     });
 
     it('returns navigation state for random events', () => {
-      const reducer = cardStackReducer(cardStackInitialState);
       expect(reducer(cardStackInitialState, null)).to.equal(cardStackInitialState);
       expect(reducer(cardStackInitialState, { type: 'RANDOM_EVENT' })).to.equal(cardStackInitialState);
     });
 
     it('calls RN\'s StateUtils.push when pushRoute action arrives and returns whatever StateUtils.push returns', () => {
-      const reducer = cardStackReducer(cardStackInitialState);
       const action = pushRoute({ key: 'route' }, cardStackInitialState.key);
 
       const returnValue = reducer(cardStackInitialState, action);
-
-      console.log(pushSpy.callCount);
-      console.log(pushSpy.args);
 
       expect(pushSpy).to.have.been.calledOnce;
       expect(pushSpy).to.have.been.calledWith(cardStackInitialState, action.payload.route);
@@ -107,7 +152,6 @@ describe('reducers', () => {
     });
 
     it('does not call RN\'s StateUtils.push when pushRoute action has payload.key different from state.key and returns current nav state', () => {
-      const reducer = cardStackReducer(cardStackInitialState);
       const action = pushRoute({ key: 'route' }, 'nav');
 
       const returnValue = reducer(cardStackInitialState, action);
@@ -116,7 +160,6 @@ describe('reducers', () => {
     });
 
     it('calls RN\'s StateUtils.pop when popRoute action arrives and returns whatever StateUtils.pop returns', () => {
-      const reducer = cardStackReducer(cardStackInitialState);
       const action = popRoute(cardStackInitialState.key);
       const returnValue = reducer(cardStackInitialState, action);
 
@@ -126,23 +169,102 @@ describe('reducers', () => {
     });
 
     it('does not call RN\'s StateUtils.pop when popRoute action has payload.key different from state.key and returns current nav state', () => {
-      const reducer = cardStackReducer(cardStackInitialState);
       const action = popRoute('random-nav-key');
       const returnValue = reducer(cardStackInitialState, action);
 
       expect(popSpy.callCount).to.equal(0);
       expect(returnValue).to.equal(cardStackInitialState);
     });
+
+    it('calls RN\'s StateUtils.reset when reset action arrives', () => {
+      const action = reset(cardStackInitialState.key);
+      const returnValue = reducer(cardStackInitialState, action);
+
+      expect(resetSpy).to.have.been.calledOnce;
+      expect(resetSpy).to.have.been.calledWith(
+        cardStackInitialState, cardStackInitialState.routes);
+    });
+
+    it('calls RN\'s StateUtils.reset with index when reset action has index data', () => {
+      const action = reset(cardStackInitialState.key, 1);
+      reducer(cardStackInitialState, action);
+
+      expect(resetSpy).to.have.been.calledOnce;
+      expect(resetSpy).to.have.been.calledWith(
+        cardStackInitialState, cardStackInitialState.routes, 1);
+    });
+
+    it('calls RN\'s StateUtils.replaceAt when replaceAt action arrives', () => {
+      const routeKey = 'old-key';
+      const route = { key: 'new-route' };
+      const action = replaceAt(routeKey, route, cardStackInitialState.key);
+      reducer(cardStackInitialState, action);
+
+      expect(replaceAtSpy).to.have.been.calledOnce;
+      expect(replaceAtSpy).to.have.been.calledWith(
+        cardStackInitialState, routeKey, route
+      );
+    });
+
+    it('calls RN\'s StateUtils.replaceAtIndex when replaceAtIndex action arrives', () => {
+      const index = 1;
+      const route = { key: 'new-route' };
+      const action = replaceAtIndex(index, route, cardStackInitialState.key);
+      reducer(cardStackInitialState, action);
+
+      expect(replaceAtIndexSpy).to.have.been.calledOnce;
+      expect(replaceAtIndexSpy).to.have.been.calledWith(
+        cardStackInitialState, index, route
+      );
+    });
+
+    it('calls RN\'s StateUtils.jumpToIndex when jumpToIndex action arrives', () => {
+      const action = jumpToIndex(0, cardStackInitialState.key);
+      reducer(cardStackInitialState, action);
+
+      expect(jumpToIndexSpy).to.have.been.calledOnce;
+      expect(jumpToIndexSpy).to.have.been.calledWith(cardStackInitialState, action.payload.routeIndex);
+    });
+
+    it('calls RN\'s StateUtils.jumpTo when jumpTo action arrives', () => {
+      const routeKey = 'key';
+      const action = jumpTo(routeKey, cardStackInitialState.key);
+      reducer(cardStackInitialState, action);
+
+      expect(jumpToSpy).to.have.been.calledOnce;
+      expect(jumpToSpy).to.have.been.calledWith(cardStackInitialState, action.payload.routeKey);
+    });
+
+    it('calls RN\'s StateUtils.back when back action arrives', () => {
+      const action = back(cardStackInitialState.key);
+      reducer(cardStackInitialState, action);
+
+      expect(backSpy).to.have.been.calledOnce;
+      expect(backSpy).to.have.been.calledWith(cardStackInitialState);
+    });
+
+    it('calls RN\'s StateUtils.forward when forward action arrives', () => {
+      const action = forward(cardStackInitialState.key);
+      reducer(cardStackInitialState, action);
+
+      expect(forwardSpy).to.have.been.calledOnce;
+      expect(forwardSpy).to.have.been.calledWith(cardStackInitialState);
+    });
   });
 
   describe('tabReducer', () => {
+    let reducer;
+
     beforeEach(() => {
+      reducer = tabReducer(tabInitialState);
       tabReducerAPI.__Rewire__('StateUtils', StateUtils);
       jumpToIndexSpy = spy(StateUtils, 'jumpToIndex');
+      jumpToSpy = spy(StateUtils, 'jumpTo');
     });
 
     afterEach(() => {
       StateUtils.jumpToIndex.restore();
+      StateUtils.jumpTo.restore();
       tabReducerAPI.__ResetDependency__('StateUtils');
     });
     
@@ -157,19 +279,16 @@ describe('reducers', () => {
     });
 
     it('returns a function', () => {
-      const reducer = tabReducer(tabInitialState);
       expect(typeof reducer === 'function').to.be.true;
     });
 
     it('returns navigation state for random events', () => {
-      const reducer = tabReducer(tabInitialState);
       expect(reducer(tabInitialState, null)).to.equal(tabInitialState);
       expect(reducer(tabInitialState, { type: 'RANDOM_EVENT' })).to.equal(tabInitialState);
     });
 
-    it('calls RN\'s StateUtils.jumpToIndex when jumpTo action arrives and returns whatever StateUtils.jumpToIndex returns', () => {
-      const reducer = tabReducer(tabInitialState);
-      const action = jumpTo(0, tabInitialState.key);
+    it('calls RN\'s StateUtils.jumpToIndex when jumpToIndex action arrives and returns whatever StateUtils.jumpToIndex returns', () => {
+      const action = jumpToIndex(0, tabInitialState.key);
       const returnValue = reducer(tabInitialState, action);
 
       expect(jumpToIndexSpy).to.have.been.calledOnce;
@@ -177,13 +296,21 @@ describe('reducers', () => {
       expect(returnValue).to.equal('StateUtils.jumpToIndex');
     });
 
-    it('does not call RN\'s StateUtils.jumpToIndex when jumpTo action has key different from state.key and returns current nav state', () => {
-      const reducer = tabReducer(tabInitialState);
-      const action = jumpTo(0, 'a different key');
+    it('does not call RN\'s StateUtils.jumpToIndex when jumpToIndex action has key different from state.key and returns current nav state', () => {
+      const action = jumpToIndex(0, 'a different key');
       const returnValue = reducer(tabInitialState, action);
 
       expect(jumpToIndexSpy.callCount).to.equal(0);
       expect(returnValue).to.equal(tabInitialState);
+    });
+
+    it('calls RN\'s StateUtils.jumpTo when jumpTo action arrives', () => {
+      const routeKey = 'key';
+      const action = jumpTo(routeKey, tabInitialState.key);
+      reducer(tabInitialState, action);
+
+      expect(jumpToSpy).to.have.been.calledOnce;
+      expect(jumpToSpy).to.have.been.calledWith(tabInitialState, action.payload.routeKey);
     });
   });
 });
