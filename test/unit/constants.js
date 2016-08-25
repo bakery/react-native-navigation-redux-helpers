@@ -6,7 +6,8 @@ import {
   REPLACE_AT,
   REPLACE_AT_INDEX,
   JUMP_TO_INDEX,
-  BACK
+  BACK,
+  FORWARD
 } from '../../src/constants';
 
 describe('constants', () => {
@@ -41,6 +42,10 @@ describe('constants', () => {
 
     it('BACK is defined', () => {
       expect(BACK).to.be.ok;
+    });
+
+    it('FORWARD is defined', () => {
+      expect(FORWARD).to.be.ok;
     });
   });
 });

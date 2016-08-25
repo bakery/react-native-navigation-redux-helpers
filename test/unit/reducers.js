@@ -7,7 +7,9 @@ import {
   reset,
   replaceAt,
   replaceAtIndex,
-  jumpToIndex
+  jumpToIndex,
+  back,
+  forward
 } from '../../src/actions';
 
 const cardStackInitialState = {
@@ -36,7 +38,8 @@ const tabInitialState = {
 
 describe('reducers', () => {
   let pushSpy, popSpy, jumpToIndexSpy, jumpToSpy,
-    resetSpy, replaceAtSpy, replaceAtIndexSpy;
+    resetSpy, replaceAtSpy, replaceAtIndexSpy,
+    backSpy, forwardSpy;
   
   const StateUtils = {
     push(state, action) {
@@ -65,6 +68,14 @@ describe('reducers', () => {
 
     replaceAtIndex(state, index, route) {
       return 'StateUtils.replaceAtIndex';
+    },
+
+    back(state) {
+      return 'StateUtils.back';
+    },
+
+    forward(state) {
+      return 'StateUtils.forward';
     }
   };
 
@@ -94,6 +105,8 @@ describe('reducers', () => {
       replaceAtIndexSpy = spy(StateUtils, 'replaceAtIndex');
       jumpToSpy = spy(StateUtils, 'jumpTo');
       jumpToIndexSpy = spy(StateUtils, 'jumpToIndex');
+      backSpy = spy(StateUtils, 'back');
+      forwardSpy = spy(StateUtils, 'forward');
     });
 
     afterEach(() => {
@@ -104,6 +117,8 @@ describe('reducers', () => {
       StateUtils.replaceAtIndex.restore();
       StateUtils.jumpTo.restore();
       StateUtils.jumpToIndex.restore();
+      StateUtils.back.restore();
+      StateUtils.forward.restore();
       cardStackReducerAPI.__ResetDependency__('StateUtils');
     });
 
@@ -221,6 +236,22 @@ describe('reducers', () => {
 
       expect(jumpToSpy).to.have.been.calledOnce;
       expect(jumpToSpy).to.have.been.calledWith(cardStackInitialState, action.payload.routeKey);
+    });
+
+    it('calls RN\'s StateUtils.back when back action arrives', () => {
+      const action = back(cardStackInitialState.key);
+      reducer(cardStackInitialState, action);
+
+      expect(backSpy).to.have.been.calledOnce;
+      expect(backSpy).to.have.been.calledWith(cardStackInitialState);
+    });
+
+    it('calls RN\'s StateUtils.forward when forward action arrives', () => {
+      const action = forward(cardStackInitialState.key);
+      reducer(cardStackInitialState, action);
+
+      expect(forwardSpy).to.have.been.calledOnce;
+      expect(forwardSpy).to.have.been.calledWith(cardStackInitialState);
     });
   });
 

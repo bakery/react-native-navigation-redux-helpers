@@ -6,7 +6,8 @@ import {
   replaceAt,
   replaceAtIndex,
   jumpToIndex,
-  back
+  back,
+  forward
 } from '../../src/actions';
 import {
   JUMP_TO,
@@ -15,7 +16,9 @@ import {
   RESET_ROUTE,
   REPLACE_AT,
   REPLACE_AT_INDEX,
-  JUMP_TO_INDEX
+  JUMP_TO_INDEX,
+  BACK,
+  FORWARD
 } from '../../src/constants';
 
 const navigationKey = 'nav-key';
@@ -144,6 +147,24 @@ describe('actions', () => {
       expect(actionData.type).to.equal(JUMP_TO_INDEX);
       expect(actionData.payload).to.be.ok;
       expect(actionData.payload.routeIndex).to.equal(index);
+    });
+  });
+
+  describe('back', () => {
+    it('returns a message with type set to BACK + proper payload', () => {
+      const actionData = back(navigationKey);
+      expect(actionData.type).to.equal(BACK);
+      expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.key).to.equal(navigationKey);
+    });
+  });
+
+  describe('forward', () => {
+    it('returns a message with type set to FORWARD + proper payload', () => {
+      const actionData = forward(navigationKey);
+      expect(actionData.type).to.equal(FORWARD);
+      expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.key).to.equal(navigationKey);
     });
   });
 });
