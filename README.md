@@ -176,6 +176,25 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, mapDispatchToProps)(ApplicationTabs);
 ```
 
+## Supported actions
+
+### cardStackReducer
+
+- pushRoute
+- popRoute
+- jumpTo
+- reset
+- replaceAt
+- replaceAtIndex
+- jumpToIndex
+- back
+- forward
+
+### tabReducer
+
+- jumpTo
+- jumpToIndex
+
 ## Complete examples
 
 - [Example using RN experimental navigation with Redux](https://github.com/thebakeryio/react-native-complex-nav)

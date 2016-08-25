@@ -146,9 +146,6 @@ describe('reducers', () => {
 
       const returnValue = reducer(cardStackInitialState, action);
 
-      console.log(pushSpy.callCount);
-      console.log(pushSpy.args);
-
       expect(pushSpy).to.have.been.calledOnce;
       expect(pushSpy).to.have.been.calledWith(cardStackInitialState, action.payload.route);
       expect(returnValue).to.equal('StateUtils.push');
