@@ -5,7 +5,8 @@ import {
   RESET_ROUTE,
   REPLACE_AT,
   REPLACE_AT_INDEX,
-  JUMP_TO_INDEX
+  JUMP_TO_INDEX,
+  BACK
 } from '../../src/constants';
 
 describe('constants', () => {
@@ -36,6 +37,10 @@ describe('constants', () => {
 
     it('JUMP_TO_INDEX is defined', () => {
       expect(JUMP_TO_INDEX).to.be.ok;
+    });
+
+    it('BACK is defined', () => {
+      expect(BACK).to.be.ok;
     });
   });
 });

@@ -40,18 +40,27 @@ export function popRoute(key) {
   };
 }
 
-export function jumpTo(routeIndex, key) {
+export function jumpTo(keyOrIndex, key) {
+  // XX: to make this backwards compatible,
+  // jumpTo supports both key and index first arg
+  // JUMP_TO action is used if the first arg is a string key
+  // otherwise JUMP_TO_INDEX is used 
+  
   if (!key) {
     throw new Error('jumpTo requires key argument');
   }
 
-  return {
-    type: JUMP_TO,
-    payload: {
-      routeIndex,
-      key
-    }
-  };
+  if (typeof keyOrIndex === 'string') {
+    return {
+      type: JUMP_TO,
+      payload: {
+        routeKey: keyOrIndex,
+        key
+      }
+    };
+  }
+
+  return jumpToIndex(keyOrIndex, key);
 }
 
 export function reset(key, index) {
@@ -99,7 +108,7 @@ export function replaceAtIndex(index, route, key) {
 }
 
 
-export function jumpToIndex(index, key) {
+export function jumpToIndex(routeIndex, key) {
   if (!key) {
     throw new Error('Jump to Index requires key argument');
   }
@@ -107,7 +116,7 @@ export function jumpToIndex(index, key) {
   return {
     type: JUMP_TO_INDEX,
     payload: {
-      index,
+      routeIndex,
       key
     }
   }

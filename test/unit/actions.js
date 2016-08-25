@@ -5,7 +5,8 @@ import {
   reset,
   replaceAt,
   replaceAtIndex,
-  jumpToIndex
+  jumpToIndex,
+  back
 } from '../../src/actions';
 import {
   JUMP_TO,
@@ -76,13 +77,23 @@ describe('actions', () => {
   });
 
   describe('jumpTo', () => {
-    it('returns a message with type set to JUMP_TO and appropriate payload', () => {    
+    it('returns a message with type set to JUMP_TO_INDEX and appropriate payload with index first arg', () => {    
       const tabIndex = 3;
       const actionData = jumpTo(tabIndex, navigationKey);
 
-      expect(actionData.type).to.equal(JUMP_TO);
+      expect(actionData.type).to.equal(JUMP_TO_INDEX);
       expect(actionData.payload).to.be.ok;
       expect(actionData.payload.routeIndex).to.equal(tabIndex);
+      expect(actionData.payload.key).to.equal(navigationKey);
+    });
+
+    it('supports string key first argument and returns message with type JUMP_TO and proper payload', () => {
+      const routeKey = 'key';
+      const actionData = jumpTo(routeKey, navigationKey);
+
+      expect(actionData.type).to.equal(JUMP_TO);
+      expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.routeKey).to.equal(routeKey);
       expect(actionData.payload.key).to.equal(navigationKey);
     });
   });
@@ -132,7 +143,7 @@ describe('actions', () => {
       const actionData = jumpToIndex(index, navigationKey);
       expect(actionData.type).to.equal(JUMP_TO_INDEX);
       expect(actionData.payload).to.be.ok;
-      expect(actionData.payload.index).to.equal(index);
+      expect(actionData.payload.routeIndex).to.equal(index);
     });
   });
 });

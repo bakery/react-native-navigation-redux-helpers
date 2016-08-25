@@ -41,8 +41,10 @@ export function cardStackReducer(initialState) {
         return StateUtils.replaceAt(state, action.payload.routeKey, action.payload.route);
       case REPLACE_AT_INDEX:
         return StateUtils.replaceAtIndex(state, action.payload.index, action.payload.route);
+      case JUMP_TO:
+        return StateUtils.jumpTo(state, action.payload.routeKey);
       case JUMP_TO_INDEX:
-        return StateUtils.jumpToIndex(state, action.payload.index);
+        return StateUtils.jumpToIndex(state, action.payload.routeIndex);
       case BACK:
         return StateUtils.back(state);
       case FORWARD:

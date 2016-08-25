@@ -35,8 +35,9 @@ const tabInitialState = {
 }
 
 describe('reducers', () => {
-  let pushSpy, popSpy, jumpToIndexSpy,
+  let pushSpy, popSpy, jumpToIndexSpy, jumpToSpy,
     resetSpy, replaceAtSpy, replaceAtIndexSpy;
+  
   const StateUtils = {
     push(state, action) {
       return 'StateUtils.push';
@@ -46,7 +47,11 @@ describe('reducers', () => {
       return 'StateUtils.pop';
     },
 
-    jumpToIndex(state) {
+    jumpTo(state, key) {
+      return 'StateUtils.jumpTo';
+    },
+
+    jumpToIndex(state, index) {
       return 'StateUtils.jumpToIndex';
     },
 
@@ -87,6 +92,8 @@ describe('reducers', () => {
       resetSpy = spy(StateUtils, 'reset');
       replaceAtSpy = spy(StateUtils, 'replaceAt');
       replaceAtIndexSpy = spy(StateUtils, 'replaceAtIndex');
+      jumpToSpy = spy(StateUtils, 'jumpTo');
+      jumpToIndexSpy = spy(StateUtils, 'jumpToIndex');
     });
 
     afterEach(() => {
@@ -95,6 +102,8 @@ describe('reducers', () => {
       StateUtils.reset.restore();
       StateUtils.replaceAt.restore();
       StateUtils.replaceAtIndex.restore();
+      StateUtils.jumpTo.restore();
+      StateUtils.jumpToIndex.restore();
       cardStackReducerAPI.__ResetDependency__('StateUtils');
     });
 
@@ -196,6 +205,23 @@ describe('reducers', () => {
         cardStackInitialState, index, route
       );
     });
+
+    it('calls RN\'s StateUtils.jumpToIndex when jumpToIndex action arrives', () => {
+      const action = jumpToIndex(0, cardStackInitialState.key);
+      reducer(cardStackInitialState, action);
+
+      expect(jumpToIndexSpy).to.have.been.calledOnce;
+      expect(jumpToIndexSpy).to.have.been.calledWith(cardStackInitialState, action.payload.routeIndex);
+    });
+
+    it('calls RN\'s StateUtils.jumpTo when jumpTo action arrives', () => {
+      const routeKey = 'key';
+      const action = jumpTo(routeKey, cardStackInitialState.key);
+      reducer(cardStackInitialState, action);
+
+      expect(jumpToSpy).to.have.been.calledOnce;
+      expect(jumpToSpy).to.have.been.calledWith(cardStackInitialState, action.payload.routeKey);
+    });
   });
 
   describe('tabReducer', () => {
@@ -205,10 +231,12 @@ describe('reducers', () => {
       reducer = tabReducer(tabInitialState);
       tabReducerAPI.__Rewire__('StateUtils', StateUtils);
       jumpToIndexSpy = spy(StateUtils, 'jumpToIndex');
+      jumpToSpy = spy(StateUtils, 'jumpTo');
     });
 
     afterEach(() => {
       StateUtils.jumpToIndex.restore();
+      StateUtils.jumpTo.restore();
       tabReducerAPI.__ResetDependency__('StateUtils');
     });
     
@@ -231,8 +259,8 @@ describe('reducers', () => {
       expect(reducer(tabInitialState, { type: 'RANDOM_EVENT' })).to.equal(tabInitialState);
     });
 
-    it('calls RN\'s StateUtils.jumpToIndex when jumpTo action arrives and returns whatever StateUtils.jumpToIndex returns', () => {
-      const action = jumpTo(0, tabInitialState.key);
+    it('calls RN\'s StateUtils.jumpToIndex when jumpToIndex action arrives and returns whatever StateUtils.jumpToIndex returns', () => {
+      const action = jumpToIndex(0, tabInitialState.key);
       const returnValue = reducer(tabInitialState, action);
 
       expect(jumpToIndexSpy).to.have.been.calledOnce;
@@ -240,12 +268,21 @@ describe('reducers', () => {
       expect(returnValue).to.equal('StateUtils.jumpToIndex');
     });
 
-    it('does not call RN\'s StateUtils.jumpToIndex when jumpTo action has key different from state.key and returns current nav state', () => {
-      const action = jumpTo(0, 'a different key');
+    it('does not call RN\'s StateUtils.jumpToIndex when jumpToIndex action has key different from state.key and returns current nav state', () => {
+      const action = jumpToIndex(0, 'a different key');
       const returnValue = reducer(tabInitialState, action);
 
       expect(jumpToIndexSpy.callCount).to.equal(0);
       expect(returnValue).to.equal(tabInitialState);
+    });
+
+    it('calls RN\'s StateUtils.jumpTo when jumpTo action arrives', () => {
+      const routeKey = 'key';
+      const action = jumpTo(routeKey, tabInitialState.key);
+      reducer(tabInitialState, action);
+
+      expect(jumpToSpy).to.have.been.calledOnce;
+      expect(jumpToSpy).to.have.been.calledWith(tabInitialState, action.payload.routeKey);
     });
   });
 });
