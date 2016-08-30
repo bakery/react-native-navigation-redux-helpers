@@ -103,15 +103,19 @@ describe('actions', () => {
 
   describe('reset', () => {
     it('returns a message with type set to RESET_ROUTE', () => {
-      const actionData = reset(navigationKey);
+      const routes = [{ key: 'route1' }];
+      const actionData = reset(routes, navigationKey);
       expect(actionData.type).to.equal(RESET_ROUTE);
       expect(actionData.payload).to.be.ok;
       expect(actionData.payload.key).to.equal(navigationKey);
+      expect(actionData.payload.routes).to.equal(routes);
     });
 
     it('returns a message with payload.index set to index passed as second arg', () => {
-      const actionData = reset(navigationKey, 1);
+      const routes = [{ key: 'route1' }];
+      const actionData = reset(routes, navigationKey, 1);
       expect(actionData.payload).to.be.ok;
+      expect(actionData.payload.routes).to.equal(routes);
       expect(actionData.payload.index).to.equal(1);
     });
   });

@@ -63,13 +63,14 @@ export function jumpTo(keyOrIndex, key) {
   return jumpToIndex(keyOrIndex, key);
 }
 
-export function reset(key, index) {
+export function reset(routes, key, index) {
   if (!key) {
     throw new Error('reset requires key argument');
   }
   return {
     type: RESET_ROUTE,
     payload: {
+      routes,
       index,
       key
     }
