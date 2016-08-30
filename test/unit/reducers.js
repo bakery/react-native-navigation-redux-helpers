@@ -177,21 +177,23 @@ describe('reducers', () => {
     });
 
     it('calls RN\'s StateUtils.reset when reset action arrives', () => {
-      const action = reset(cardStackInitialState.key);
+      const routes = [{ key: 'new route'}];
+      const action = reset(routes, cardStackInitialState.key);
       const returnValue = reducer(cardStackInitialState, action);
 
       expect(resetSpy).to.have.been.calledOnce;
       expect(resetSpy).to.have.been.calledWith(
-        cardStackInitialState, cardStackInitialState.routes);
+        cardStackInitialState, routes);
     });
 
     it('calls RN\'s StateUtils.reset with index when reset action has index data', () => {
-      const action = reset(cardStackInitialState.key, 1);
+      const routes = [{ key: 'new route'}];
+      const action = reset(routes, cardStackInitialState.key, 0);
       reducer(cardStackInitialState, action);
 
       expect(resetSpy).to.have.been.calledOnce;
       expect(resetSpy).to.have.been.calledWith(
-        cardStackInitialState, cardStackInitialState.routes, 1);
+        cardStackInitialState, routes, 0);
     });
 
     it('calls RN\'s StateUtils.replaceAt when replaceAt action arrives', () => {
