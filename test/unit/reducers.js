@@ -21,6 +21,11 @@ const cardStackInitialState = {
   }]
 };
 
+const repeatedRoute = {
+  key: 'route-1',
+  title: 'Route 1'
+};
+
 const tabInitialState = {
   key: 'ta-key',
   index: 0,
@@ -149,6 +154,14 @@ describe('reducers', () => {
       expect(pushSpy).to.have.been.calledOnce;
       expect(pushSpy).to.have.been.calledWith(cardStackInitialState, action.payload.route);
       expect(returnValue).to.equal('StateUtils.push');
+    });
+
+    it('does not call RN\'s StateUtils.push when pushRoute action has payload.key same with current route state.key and returns current nav state', () => {
+      const action = pushRoute({ key: 'route' }, repeatedRoute.key);
+
+      const returnValue = reducer(cardStackInitialState, action);
+      expect(pushSpy.callCount).to.equal(0);
+      expect(returnValue).to.equal(cardStackInitialState);
     });
 
     it('does not call RN\'s StateUtils.push when pushRoute action has payload.key different from state.key and returns current nav state', () => {
