@@ -1,7 +1,6 @@
 # React Native Navigation Redux helpers
-[![Travis build status](http://img.shields.io/travis/thebakeryio/react-native-navigation-redux-helpers.svg?style=flat)](https://travis-ci.org/thebakeryio/react-native-navigation-redux-helpers)
+[![Build Status](https://travis-ci.org/bakery/react-native-navigation-redux-helpers.svg?branch=master)](https://travis-ci.org/bakery/react-native-navigation-redux-helpers)
 [![Code Climate](https://codeclimate.com/github/thebakeryio/react-native-navigation-redux-helpers/badges/gpa.svg)](https://codeclimate.com/github/thebakeryio/react-native-navigation-redux-helpers)
-[![Test Coverage](https://codeclimate.com/github/thebakeryio/react-native-navigation-redux-helpers/badges/coverage.svg)](https://codeclimate.com/github/thebakeryio/react-native-navigation-redux-helpers)
 [![Dependency Status](https://david-dm.org/thebakeryio/react-native-navigation-redux-helpers.svg)](https://david-dm.org/thebakeryio/react-native-navigation-redux-helpers)
 [![devDependency Status](https://david-dm.org/thebakeryio/react-native-navigation-redux-helpers/dev-status.svg)](https://david-dm.org/thebakeryio/react-native-navigation-redux-helpers#info=devDependencies)
 
