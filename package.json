@@ -1,6 +1,6 @@
 {
   "name": "react-native-navigation-redux-helpers",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Redux helpers for React Native navigation",
   "main": "dist/index.js",
   "scripts": {
@@ -37,13 +37,13 @@
     "gulp-babel": "^6.1.2",
     "gulp-eslint": "^3.0.1",
     "gulp-filter": "^4.0.0",
-    "gulp-istanbul": "^0.10.3",
+    "gulp-istanbul": "^1.1.1",
     "gulp-livereload": "^3.8.1",
     "gulp-load-plugins": "^1.1.0",
     "gulp-mocha": "^3.0.1",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^1.6.0",
+    "gulp-sourcemaps": "^2.1.1",
     "gulp-uglify": "^2.0.0",
     "isparta": "^4.0.0",
     "json-loader": "^0.5.3",
