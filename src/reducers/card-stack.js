@@ -30,7 +30,11 @@ export function cardStackReducer(initialState) {
     switch (action.type) {
       case PUSH_ROUTE:
       if (state.routes[state.index].key === (action.payload && action.payload.route.key)) return state;
-        return StateUtils.push(state, action.payload.route);
+        const navigationNewState = StateUtils.push(state, action.payload.route);
+        return {
+          ...navigationNewState,
+          direction: action.payload.route.direction,
+        };
       case POP_ROUTE:
         return StateUtils.pop(state);
       case RESET_ROUTE:
